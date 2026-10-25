@@ -1,0 +1,17 @@
+Bridge mqtt:broker:mosquitto [ 
+    host="mosquitto", 
+    port=8883, 
+    secure=true, 
+    username="openhab_user", 
+    password="openhab_pass_123" 
+] {
+    Thing topic room1_sensors "Room 1 Sensors" {
+        Channels:
+            Type number : power "Power Consumption" [ stateTopic="flat/main/power/telemetry", transformationPattern="JSONPATH:$.value" ]
+            Type number : lux "Light Lux" [ stateTopic="flat/room1/lux/telemetry", transformationPattern="JSONPATH:$.value" ]
+            Type switch : motion "Motion Sensor" [ stateTopic="flat/room1/motion/telemetry", transformationPattern="JSONPATH:$.state" ]
+            Type number : temp "Temperature" [ stateTopic="flat/room1/environment/telemetry", transformationPattern="JSONPATH:$.temp" ]
+            Type dimmable : dimmable_light "Light Dimmer" [ commandTopic="flat/room1/light/set", stateTopic="flat/room1/light/state", transformationPattern="JSONPATH:$.brightness" ]
+            Type switch : heater "Heater Switch" [ commandTopic="flat/room1/heater/set", stateTopic="flat/room1/heater/state", transformationPattern="JSONPATH:$.state" ]
+    }
+}

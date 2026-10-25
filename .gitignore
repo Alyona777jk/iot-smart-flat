@@ -1,0 +1,11 @@
+# openHAB runtime generated data
+openhab/userdata/
+openhab/addons/
+
+# Python
+__pycache__/
+*.pyc
+
+# System files
+.DS_Store
+Thumbs.db

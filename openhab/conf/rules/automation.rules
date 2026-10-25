@@ -1,0 +1,41 @@
+// Правило 1: Рух і освітленість < 50 лк -> світло 70%; без руху (прискорено до 30с) -> вимкнути.
+rule "Motion and Lighting Control"
+when
+    Item Motion_Sensor changed
+then
+    if (Motion_Sensor.state == ON && (Lux_Sensor.state as Number) < 50) {
+        Room1_Light.sendCommand(70)
+    } else if (Motion_Sensor.state == OFF) {
+        // Прискорений інтервал для демо: 30 секунд замість 5 хвилин
+        createTimer(now.plusSeconds(30), [|
+            Room1_Light.sendCommand(0)
+        ])
+    }
+end
+
+// Правило 2: Нікого вдома (прискорено 30с) -> режим "Економ" (17 °C); рух -> 21 °C.
+rule "Eco Heating Control"
+when
+    Item Motion_Sensor changed
+then
+    if (Motion_Sensor.state == ON) {
+        Heater_Setpoint.sendCommand(21.0)
+    } else {
+        createTimer(now.plusSeconds(30), [|
+            Heater_Setpoint.sendCommand(17.0)
+        ])
+    }
+end
+
+// Правило 3: Потужність > 2500 Вт -> Сповіщення та вимкнення обігрівача
+rule "Power Overload Safety"
+when
+    Item Power_Sensor changed
+then
+    if ((Power_Sensor.state as Number) > 2500) {
+        Alarm_Overload.postUpdate(ON)
+        Heater_Switch.sendCommand("OFF")
+    } else {
+        Alarm_Overload.postUpdate(OFF)
+    }
+end

@@ -1,0 +1,8 @@
+Number Power_Sensor "Потужність [%.1f Вт]" <energy> { channel="mqtt:topic:room1_sensors:power" }
+Number Lux_Sensor "Освітленість [%.0f лк]" <sun> { channel="mqtt:topic:room1_sensors:lux" }
+Switch Motion_Sensor "Рух у кімнаті" <motion> { channel="mqtt:topic:room1_sensors:motion" }
+Number Temp_Sensor "Температура [%.1f °C]" <temperature> { channel="mqtt:topic:room1_sensors:temp" }
+Dimmer Room1_Light "Освітлення Кімната 1 [%d %%]" <light> { channel="mqtt:topic:room1_sensors:dimmable_light" }
+Switch Heater_Switch "Обігрівач" <heating> { channel="mqtt:topic:room1_sensors:heater" }
+Number Heater_Setpoint "Уставка температури [%.1f °C]" <setpoint>
+Switch Alarm_Overload "ТРИВОГА: ПЕРЕВАНТАЖЕННЯ" <alarm>

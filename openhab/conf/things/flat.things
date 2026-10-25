@@ -1,0 +1,24 @@
+Bridge mqtt:broker:mosquitto "Mosquitto MQTT Broker" [ 
+    host="mosquitto", 
+    port=8883, 
+    secure=true, 
+    username="openhab_user", 
+    password="openhab_pass_123",
+    certificatepin=false
+] {
+    Thing topic room1_env "Room1 Sensors" {
+        Channels:
+            Type number : temp "Temperature" [ stateTopic="flat/room1/environment/telemetry", transformationPattern="JSONPATH:$.temp" ]
+            Type number : humidity "Humidity" [ stateTopic="flat/room1/environment/telemetry", transformationPattern="JSONPATH:$.humidity" ]
+            Type number : lux "Lux" [ stateTopic="flat/room1/lux/telemetry", transformationPattern="JSONPATH:$.value" ]
+            Type switch : motion "Motion" [ stateTopic="flat/room1/motion/telemetry", transformationPattern="JSONPATH:$.state", on="ON", off="OFF" ]
+            Type number : power "Power" [ stateTopic="flat/main/power/telemetry", transformationPattern="JSONPATH:$.value" ]
+    }
+
+    Thing topic room1_actuators "Room1 Actuators" {
+        Channels:
+            Type switch : light "Light Switch" [ stateTopic="flat/room1/light/state", commandTopic="flat/room1/light/set", on="{\"state\":\"ON\"}", off="{\"state\":\"OFF\"}" ]
+            Type number : temp_setpoint "Thermostat Setpoint" [ stateTopic="flat/room1/thermostat/state", commandTopic="flat/room1/thermostat/set", min=15, max=30, step=0.5 ]
+            Type switch : heater "Heater Switch" [ stateTopic="flat/room1/heater/state", commandTopic="flat/room1/heater/set", on="{\"state\":\"ON\"}", off="{\"state\":\"OFF\"}" ]
+    }
+}

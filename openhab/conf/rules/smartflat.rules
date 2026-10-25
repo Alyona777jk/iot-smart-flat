@@ -1,0 +1,23 @@
+rule "Rule 1 & 2: Motion Detected with Low Ambient Light"
+when
+    Item Room1_Motion changed to ON
+then
+    if (Room1_Lux.state < 50) {
+        Room1_Light.sendCommand(ON)
+        Room1_Setpoint.sendCommand(21.0)
+        logInfo("SmartFlat", "Motion detected & Lux < 50: Light set to ON, Thermostat set to 21.0C")
+    }
+end
+
+rule "Rule 3: Power Overload Protection"
+when
+    Item Main_Power changed
+then
+    if (Main_Power.state > 2500) {
+        Overload_Alarm.postUpdate(ON)
+        Room1_Heater.sendCommand(OFF)
+        logWarn("SmartFlat", "POWER OVERLOAD DETECTED (>2500W)! Heater turned OFF.")
+    } else {
+        Overload_Alarm.postUpdate(OFF)
+    }
+end

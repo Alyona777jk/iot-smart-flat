@@ -1,0 +1,16 @@
+sitemap smartflat label="Smart Energy-Efficient Flat" {
+    Frame label="Environment & Telemetry" {
+        Text item=Room1_Temp
+        Text item=Room1_Humidity
+        Text item=Room1_Lux
+        Text item=Room1_Motion
+        Text item=Main_Power
+        Text item=Overload_Alarm valuecolor=[ON="red", OFF="green"]
+    }
+
+    Frame label="Actuators & Controls" {
+        Switch item=Room1_Light
+        Setpoint item=Room1_Setpoint minValue=15 maxValue=30 step=0.5
+        Switch item=Room1_Heater
+    }
+}

@@ -1,0 +1,11 @@
+Number Room1_Temp "Temperature [%.1f °C]" <temperature> { channel="mqtt:topic:mosquitto:room1_env:temp" }
+Number Room1_Humidity "Humidity [%.1f %%]" <humidity> { channel="mqtt:topic:mosquitto:room1_env:humidity" }
+Number Room1_Lux "Lux [%.0f lx]" <sun> { channel="mqtt:topic:mosquitto:room1_env:lux" }
+Switch Room1_Motion "Motion [%s]" <motion> { channel="mqtt:topic:mosquitto:room1_env:motion" }
+Number Main_Power "Total Power [%.1f W]" <energy> { channel="mqtt:topic:mosquitto:room1_env:power" }
+
+Switch Room1_Light "Light Switch" <light> { channel="mqtt:topic:mosquitto:room1_actuators:light" }
+Number Room1_Setpoint "Thermostat Setpoint [%.1f °C]" <setpoint> { channel="mqtt:topic:mosquitto:room1_actuators:temp_setpoint" }
+Switch Room1_Heater "Heater Switch" <heating> { channel="mqtt:topic:mosquitto:room1_actuators:heater" }
+
+Switch Overload_Alarm "Power Overload Alarm" <alarm>
